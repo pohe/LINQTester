@@ -242,6 +242,63 @@ namespace LINQTester
                 Console.WriteLine($"Title {m.MoviesName}  City {m.ProductionCity} number of Actor with R {m.numberOfActors}");
             }
 
+            Console.WriteLine("\nThe Fluent syntax\n");
+
+            List<int> numbers1 = new List<int> { 12, 37, 8, 17 };
+            IEnumerable<int> resultA = numbers1.Where(i => i < 15);
+
+            foreach (int resA in resultA)
+            {
+                Console.Write($"{resA}\t");
+            }
+
+            Console.WriteLine();
+            // Corresponding SQL-like LINQ query
+            IEnumerable<int> resultB = from i in numbers1
+                where i < 15
+                select i;
+            foreach (int resB in resultB)
+            {
+                Console.Write($"{resB}\t");
+            }
+
+            Console.WriteLine();
+
+            //List<Movie> movies = new List<Movie>();
+            var resultA1 = movies.Select(m => new { m.Title, m.Year });
+
+            // Corresponding SQL-like LINQ query
+            var resultB1 = from m in movies
+                select new { m.Title, m.Year };
+            foreach (var a1 in resultA1)
+            {
+                Console.Write($"{a1.Title}\t");
+            }
+
+            Console.WriteLine();
+            foreach (var b1 in resultB1)
+            {
+                Console.Write($"{b1.Title}\t");
+            }
+
+            Console.WriteLine();
+
+            var resultA2 = movies.Select(m => new { m.Title, m.Year })
+                .Where(m => m.Year > 1995);
+            foreach (var a2 in resultA2)
+            {
+                Console.Write($"{a2.Title}\t");
+            }
+
+            Console.WriteLine();
+            var resultA3 = movies.Select(m => new { m.Title, m.Year })
+                .Select(m => new { ShortYear = m.Year, m.Title })
+                .Where(m => m.ShortYear > 1995)
+                .Where(m => m.Title.Contains("The"));
+            foreach (var a3 in resultA3)
+            {
+                Console.Write($"{a3.Title}\t");
+            }
             // The LAST line of code should be ABOVE this line
         }
     }
