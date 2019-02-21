@@ -32,9 +32,25 @@ namespace LINQTester
 
             };
 
+            //Example 1
+            // The Three Parts of a LINQ Query:
+            //  1. Data source.
+            int[] numbers = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
+
+            // 2. Query creation.
+            // numQuery is an IEnumerable<int>
+            var numQuery = from num in numbers
+                where (num % 2) == 0
+                select num;
+
+            // 3. Query execution.
+            foreach (int num in numQuery)
+            {
+                Console.Write("{0,1} ", num);
+            }
+
             // Selection – single property
 
-           
 
             Console.WriteLine("Selection – single property \n");
             IEnumerable<string> titles = from m in movies
@@ -72,6 +88,7 @@ namespace LINQTester
             }
 
             Console.WriteLine("\nSelection – collections containing collections\n");
+
             movies[0].Actors= new List<Actor>()  { new Actor() {Name="Dustin Hoffmann"}, new Actor() { Name = "Denzel Washington" } };
             movies[1].Actors = new List<Actor>() { new Actor() { Name = "Meryl Streep" }, new Actor() { Name = "Jack Nicholson" } };
             movies[2].Actors = new List<Actor>() { new Actor() { Name = "Ralph Fiennes" }, new Actor() { Name = "Sigourney Weaver" } };
@@ -167,7 +184,10 @@ namespace LINQTester
                         select a).Count()
                 };
 
-
+            foreach (var element in movies95to98)
+            {
+                Console.WriteLine(element);
+            }
             // Deferred evaluation
             Console.WriteLine("\nDeferred evaluation\n");
 
