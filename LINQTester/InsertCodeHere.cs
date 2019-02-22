@@ -61,6 +61,14 @@ namespace LINQTester
                 Console.WriteLine(element);
             }
 
+            var snames = from s in studios
+                select new {Info= s.StudioName + " ligger i " +  s.HQCity, AntalAnsatte = s.NoOfEmployees};
+
+            foreach (var s in snames)
+            {
+                Console.WriteLine($"Studio {s.Info} antal medarbejdere {s.AntalAnsatte}");
+            }
+
             // Selection – several properties
 
             Console.WriteLine("\nSelection – several properties\n");
