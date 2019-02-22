@@ -160,6 +160,8 @@ namespace LINQTester
             // Joining
             Console.WriteLine("\nJoining\n");
 
+            
+
             var joinTitleStudio = from m in movies
                 join s in studios
                     on m.StudioName equals s.StudioName
