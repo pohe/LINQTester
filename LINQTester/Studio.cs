@@ -1,6 +1,6 @@
 ﻿namespace LINQTester
 {
-    internal class Studio
+    public class Studio
     {
         public string StudioName { get; set; }
         public string HQCity { get; set; }

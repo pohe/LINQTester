@@ -40,21 +40,21 @@ namespace LINQTester
             // 2. Query creation.
             // numQuery is an IEnumerable<int>
             var numQuery = from num in numbers
-                where (num % 2) == 0
+                where (num % 2) == 0 
                 select num;
 
             // 3. Query execution.
             foreach (int num in numQuery)
             {
-                Console.Write("{0,1} ", num);
+                Console.Write($"{num} " );
             }
 
             // Selection – single property
 
 
             Console.WriteLine("Selection – single property \n");
-            IEnumerable<string> titles = from m in movies
-                select m.Title;
+            IEnumerable<string> titles = (from m in movies
+                select m.Title);
 
             foreach (var element in titles)
             {
@@ -168,9 +168,44 @@ namespace LINQTester
             // Joining
             Console.WriteLine("\nJoining\n");
 
+            Console.WriteLine("list titler på film som har hovedkvarter i New York");
             
+            var q = from m in movies
+                join s in studios on m.StudioName equals s.StudioName
+                where s.HQCity == "New York"
+                select m.Title;
 
-            var joinTitleStudio = from m in movies
+            foreach (var name in q)
+            {
+                Console.WriteLine(name);
+            }
+
+
+            Console.WriteLine("List titel, år og antal skuespillere der begynder med D, som er procuceret i mellem 1995 og 1998");
+            
+            var q1 = from m in movies
+                where m.Year >= 1995 && m.Year <= 1998
+                select new
+                {
+                    Title = m.Title,
+                    Year = m.Year,
+                    AntalActorsWithD = (from a in m.Actors
+                        where a.Name.StartsWith("D")
+                        select a).Count()
+                };
+
+            foreach (var movie in q1)
+            {
+                Console.WriteLine($" {movie.Title}   {movie.Year}  {movie.AntalActorsWithD}");
+            }
+
+
+
+            Console.WriteLine();
+
+
+
+           var joinTitleStudio = from m in movies
                 join s in studios
                     on m.StudioName equals s.StudioName
                 where s.HQCity == "New York"
@@ -180,8 +215,6 @@ namespace LINQTester
             {
                 Console.WriteLine(element);
             }
-
-
 
             var movies95to98 = from m in movies
                 where m.Year >= 1995 && m.Year <= 1998
@@ -293,8 +326,7 @@ namespace LINQTester
 
             Console.WriteLine();
 
-            var resultA2 = movies.Select(m => new { m.Title, m.Year })
-                .Where(m => m.Year > 1995);
+            var resultA2 = movies.Select(m => new { m.Title, m.Year }).Where(m => m.Year > 1995);
             foreach (var a2 in resultA2)
             {
                 Console.Write($"{a2.Title}\t");
