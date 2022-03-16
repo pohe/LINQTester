@@ -159,7 +159,7 @@ namespace LINQTester
             //}
 
 
-            
+
             //var resultA = movies.Select(m => new { m.Title, m.Year });
 
             //var resultA = movies.Select(m => new { m.Title, m.Year })
@@ -190,11 +190,6 @@ namespace LINQTester
 
             //Console.WriteLine();
 
-
-
-
-
-           
             //var queryTitleMoviesFromNewYorkNoOfActors = from m in movies
             //    join s in studios on m.StudioName equals s.StudioName
             //    where s.HQCity == "New York"
@@ -207,6 +202,37 @@ namespace LINQTester
 
 
 
+
+
+            //Console.WriteLine("Define the query combining LINQ and Lambda expressions");
+            //// Define the query combining LINQ and Lambda expressions
+            //IEnumerable<string> titles4 = from m in movies.FindAll(m => m.Year > 1979)
+            //    select m.Title;
+
+            //foreach (var element in titles4)
+            //{
+            //    Console.WriteLine(element);
+            //}
+
+
+            //Console.WriteLine("List movies der er lavet fra et filmselskab fra New York og antallet af actors der starter med R");
+            //var moviesNewYork = from m in movies
+            //    join s in studios
+            //        on m.StudioName equals s.StudioName
+            //    where s.HQCity == "New York"
+            //    select new
+            //    {
+            //        MoviesName = m.Title,
+            //        ProductionCity = s.HQCity,
+            //        numberOfActors = (from a in m.Actors
+            //            where a.Name.StartsWith("R")
+            //            select a).Count()
+            //    };
+
+            //foreach (var m in moviesNewYork)
+            //{
+            //    Console.WriteLine($"Title {m.MoviesName}  City {m.ProductionCity} number of Actor with R {m.numberOfActors}");
+            //}
             // The LAST line of code should be ABOVE this line
         }
     }
