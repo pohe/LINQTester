@@ -337,14 +337,14 @@ namespace LINQTester
             }
 
             Console.WriteLine();
-            var resultA3 = movies.Select(m => new { m.Title, m.Year })
-                .Select(m => new { ShortYear = m.Year, m.Title })
-                .Where(m => m.ShortYear > 1995)
-                .Where(m => m.Title.Contains("The"));
-            foreach (var a3 in resultA3)
-            {
-                Console.Write($"{a3.Title}\t");
-            }
+            //var resultA3 = movies.Select(m => new { m.Title, m.Year })
+            //    .Select(m => new { ShortYear = m.Year, m.Title })
+            //    .Where(m => m.ShortYear > 1995)
+            //    .Where(m => m.Title.Contains("The"));
+            //foreach (var a3 in resultA3)
+            //{
+            //    Console.Write($"{a3.Title}\t");
+            //}
 
         }
     }

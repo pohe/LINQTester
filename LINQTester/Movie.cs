@@ -22,5 +22,10 @@ namespace LINQTester
             StudioName = studioName;
 
         }
+
+        public override string ToString()
+        {
+            return $"{Title} {Year} {DurationInMins} {StudioName}";
+        }
     }
 }

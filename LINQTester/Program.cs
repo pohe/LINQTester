@@ -12,7 +12,7 @@ namespace LINQTester
         {
             InsertCodeHere theCode = new InsertCodeHere();
             theCode.MyCode();
-            WordExample.Code();
+            //WordExample.Code();
             Console.WriteLine();
             Console.WriteLine("Press any key to close the program...");
 
