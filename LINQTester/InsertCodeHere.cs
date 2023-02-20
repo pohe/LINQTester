@@ -13,6 +13,7 @@ namespace LINQTester
         public void MyCode()
         {
             // The FIRST line of code should be BELOW this line
+            #region Create List of movies
             List<Movie> movies = new List<Movie>()
             {
                 new Movie{Title ="Se7en", Year = 1995, DurationInMins = 127, StudioName="New Line Cinema"},
@@ -22,6 +23,16 @@ namespace LINQTester
                 new Movie{Title = "Dark City", Year = 1998, DurationInMins = 111, StudioName="New Line Cinema"},
 
             };
+            #region Create actors
+            movies[0].Actors = new List<Actor>() { new Actor() { Name = "Dustin Hoffmann" }, new Actor() { Name = "Denzel Washington" } };
+            movies[1].Actors = new List<Actor>() { new Actor() { Name = "Meryl Streep" }, new Actor() { Name = "Jack Nicholson" } };
+            movies[2].Actors = new List<Actor>() { new Actor() { Name = "Ralph Fiennes" }, new Actor() { Name = "Sigourney Weaver" } };
+            movies[3].Actors = new List<Actor>() { new Actor() { Name = "Robert De Niro" }, new Actor() { Name = "Al Pacino" } };
+            movies[4].Actors = new List<Actor>() { new Actor() { Name = "Dustin Hoffmann" }, new Actor() { Name = " Jack Nicholson" } };
+            #endregion
+            #endregion
+
+            #region create list of studios
             List<Studio> studios = new List<Studio>()
             {
                 new Studio{StudioName = "New Line Cinema", HQCity = "Boston", NoOfEmployees = 4000},
@@ -29,108 +40,130 @@ namespace LINQTester
                 new Studio{StudioName = "Paramount Pictures", HQCity = "New York", NoOfEmployees = 8000}
 
             };
-            movies[0].Actors = new List<Actor>() { new Actor() { Name = "Dustin Hoffmann" }, new Actor() { Name = "Denzel Washington" } };
-            movies[1].Actors = new List<Actor>() { new Actor() { Name = "Meryl Streep" }, new Actor() { Name = "Jack Nicholson" } };
-            movies[2].Actors = new List<Actor>() { new Actor() { Name = "Ralph Fiennes" }, new Actor() { Name = "Sigourney Weaver" } };
-            movies[3].Actors = new List<Actor>() { new Actor() { Name = "Robert De Niro" }, new Actor() { Name = "Al Pacino" } };
-            movies[4].Actors = new List<Actor>() { new Actor() { Name = "Dustin Hoffmann" }, new Actor() { Name = " Jack Nicholson" } };
+            #endregion
 
+            #region Examples 1
 
-            //Examples
+            int[] numbers = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
 
-            //int[] numbers = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
-
-            //// 2. Query creation.
-            //// numQuery is an IEnumerable<int>
+            //// 2.Query creation.
+            //// numQuery is an IEnumerable < int >
             //var numQuery = from num in numbers
-            //    where (num % 2) == 0
-            //    select num;
+            //               where (num % 2) == 0
+            //               select num;
 
-            //// 3. Query execution.
+            //// 3.Query execution.
             //foreach (int num in numQuery)
             //{
-            //    Console.Write($"{num} " );
+            //    Console.Write($"{num} ");
             //}
 
             //int evenNumCount = numQuery.Count();
 
+            #endregion
 
-
+            #region Example select titles
             //IEnumerable<string> titles1 = from m in movies
-            //    select m.Title;
+            //                              select m.Title;
 
             //foreach (string title in titles1)
             //{
             //    Console.WriteLine(title);
             //}
 
+            #endregion
+
+            #region Example select title and year
             //var titlesAndYears = from m in movies
-            //    select new { m.Title, m.Year };
+            //                     select new { m.Title, m.Year };
             //foreach (var title1 in titlesAndYears)
             //{
-            //    Console.WriteLine(title1.Title  + " " + title1.Year);
+            //    Console.WriteLine(title1.Title + " " + title1.Year);
             //}
+            #endregion
 
+            #region Example summary and year
+            //var summaryAndYears = from m in movies
+            //                      select new
+            //                      {
+            //                          Summary = $"{m.Title} made by {m.StudioName}",
+            //                          m.Year
+            //                      };
 
-            //var titlesAndYears = from m in movies
-            //    select new
-            //    {
-            //        Summary = $"{m.Title} made by {m.StudioName}",
-            //        m.Year
-            //    };
-
-            //foreach (var titlesAndYear in titlesAndYears)
+            //foreach (var sumAndYear in summaryAndYears)
             //{
-            //    Console.WriteLine(titlesAndYear.Summary + " " + titlesAndYear.Year);
+            //    Console.WriteLine(sumAndYear.Summary + " " + sumAndYear.Year);
             //}
+            #endregion
 
+            #region Example Movies and actors
             //var titlesAndActors = from m in movies
-            //    select new { m.Title, m.Actors };
+            //                      select new { m.Title, m.Actors };
 
             //foreach (var item in titlesAndActors)
             //{
             //    Console.WriteLine(item.Title);
             //    foreach (var actor in item.Actors)
             //    {
-            //        Console.WriteLine("\t"+actor.Name);
+            //        Console.WriteLine("\t" + actor.Name);
             //    }
             //}
+            #endregion
 
+            #region Example filtering and ordering by year
+            //var titlesAndYearsOrdered = from m in movies
+            //                            where m.Year < 1996
+            //                            orderby m.Year
+            //                            select new { m.Title, m.Year };
 
-            //var titlesAndYears = from m in movies
-            //    where m.Year < 1996
-            //    orderby m.Year
-            //    select new { m.Title, m.Year };
-
-            //foreach (var titlesAndYear in titlesAndYears)
+            //foreach (var titlesAndYear in titlesAndYearsOrdered)
             //{
             //    Console.WriteLine(titlesAndYear.Title + " " + titlesAndYear.Year);
             //}
 
+            #endregion
 
-            //IEnumerable<string> titles = from m in movies
-            //    select m.Title;
+            #region Example Aggregation functions
+            IEnumerable<string> titles = from m in movies
+                                         select m.Title;
             // This is fine
-            //Console.WriteLine(titles.Count());
+            Console.WriteLine(titles.Count());
 
             // This is also fine
-            //Console.WriteLine((from m in movies select m.Title).Count());
+            Console.WriteLine((from m in movies select m.Title).Count());
 
 
-            //Console.WriteLine((from m in movies select m.Year).Average());
+            Console.WriteLine((from m in movies select m.Year).Average());
 
-            ////Doesn't make sense
-            ////Console.WriteLine((from m in movies select m.Title).Average());
+            //Doesn't make sense
+            //Console.WriteLine((from m in movies select m.Title).Average());
 
-            //Console.WriteLine((from m in movies select m.Title).Max());
+            Console.WriteLine((from m in movies select m.Title).Max());
+
+            #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
             //var joinTitleStudio = from m in movies
-            //    join s in studios
-            //        on m.StudioName equals s.StudioName
-            //    where s.HQCity == "New York"
-            //    select m.Title;
+            //                      join s in studios
+            //                          on m.StudioName equals s.StudioName
+            //                      where s.HQCity == "New York"
+            //                      select m.Title;
 
             //foreach (var j in joinTitleStudio)
             //{
@@ -150,8 +183,8 @@ namespace LINQTester
 
             //// Corresponding SQL-like LINQ query
             //IEnumerable<int> resultB = from i in numbers
-            //    where i < 15
-            //    select i;
+            //                           where i < 15
+            //                           select i;
 
             //foreach (var i in resultB)
             //{
