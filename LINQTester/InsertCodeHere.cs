@@ -124,21 +124,21 @@ namespace LINQTester
             #endregion
 
             #region Example Aggregation functions
-            IEnumerable<string> titles = from m in movies
-                                         select m.Title;
-            // This is fine
-            Console.WriteLine(titles.Count());
+            //IEnumerable<string> titles = from m in movies
+            //                             select m.Title;
+            //// This is fine
+            //Console.WriteLine(titles.Count());
 
-            // This is also fine
-            Console.WriteLine((from m in movies select m.Title).Count());
+            //// This is also fine
+            //Console.WriteLine((from m in movies select m.Title).Count());
 
 
-            Console.WriteLine((from m in movies select m.Year).Average());
+            //Console.WriteLine((from m in movies select m.Year).Average());
 
-            //Doesn't make sense
-            //Console.WriteLine((from m in movies select m.Title).Average());
+            ////Doesn't make sense
+            ////Console.WriteLine((from m in movies select m.Title).Average());
 
-            Console.WriteLine((from m in movies select m.Title).Max());
+            //Console.WriteLine((from m in movies select m.Title).Max());
 
             #endregion
 
@@ -158,7 +158,7 @@ namespace LINQTester
 
 
 
-
+            #region
             //var joinTitleStudio = from m in movies
             //                      join s in studios
             //                          on m.StudioName equals s.StudioName
@@ -170,7 +170,9 @@ namespace LINQTester
             //    Console.WriteLine(j);
             //}
 
+            #endregion
 
+            #region
             //List<int> numbers = new List<int> { 12, 37, 8, 17 };
             //IEnumerable<int> resultA = numbers.Where(i => i < 15);
 
@@ -191,13 +193,18 @@ namespace LINQTester
             //    Console.WriteLine(i);
             //}
 
+            #endregion
 
-
+            #region
             //var resultA = movies.Select(m => new { m.Title, m.Year });
+            #endregion
 
+            #region
             //var resultA = movies.Select(m => new { m.Title, m.Year })
             //    .Where(m => m.Year > 1995);
+            #endregion
 
+            #region
             //var resultA = movies.Select(m => new { m.Title, m.Year })
             //    .Select(m => new { ShortYear = m.Year, m.Title })
             //    .Where(m => m.ShortYear > 1995)
