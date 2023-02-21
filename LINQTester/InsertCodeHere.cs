@@ -143,22 +143,8 @@ namespace LINQTester
             #endregion
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            #region
+            #region Example 1 join
+            //Console.WriteLine("Find titler på film der er lavet i et studio i New York");
             //var joinTitleStudio = from m in movies
             //                      join s in studios
             //                          on m.StudioName equals s.StudioName
@@ -169,10 +155,64 @@ namespace LINQTester
             //{
             //    Console.WriteLine(j);
             //}
-
             #endregion
 
-            #region
+            #region Example join 2
+            Console.WriteLine("Find filmtitler og filmens antal skuespillere på film der er lavet i et studio i New York");
+            var queryTitleMoviesFromNewYorkNoOfActors =
+                    from m in movies
+                    join s in studios on m.StudioName equals s.StudioName
+                    where s.HQCity == "New York"
+                    select new { MovieTitle = m.Title, NoOfActors = m.Actors.Count };
+
+            foreach (var v in queryTitleMoviesFromNewYorkNoOfActors)
+            {
+                Console.WriteLine($"Title {v.MovieTitle}  No of actors {v.NoOfActors}");
+            }
+            #endregion
+
+            #region Example join 3
+            Console.WriteLine("List movies der er lavet fra et filmselskab fra New York og antallet af actors der starter med R");
+            var moviesNewYork = from m in movies
+                                join s in studios
+                                    on m.StudioName equals s.StudioName
+                                where s.HQCity == "New York"
+                                select new
+                                {
+                                    MoviesName = m.Title,
+                                    ProductionCity = s.HQCity,
+                                    numberOfActors = (from a in m.Actors
+                                                      where a.Name.StartsWith("R")
+                                                      select a).Count()
+                                };
+
+            foreach (var m in moviesNewYork)
+            {
+                Console.WriteLine($"Title {m.MoviesName}  City {m.ProductionCity} number of Actor with R {m.numberOfActors}");
+            }
+            #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             //List<int> numbers = new List<int> { 12, 37, 8, 17 };
             //IEnumerable<int> resultA = numbers.Where(i => i < 15);
 
@@ -193,18 +233,13 @@ namespace LINQTester
             //    Console.WriteLine(i);
             //}
 
-            #endregion
 
-            #region
+
             //var resultA = movies.Select(m => new { m.Title, m.Year });
-            #endregion
 
-            #region
             //var resultA = movies.Select(m => new { m.Title, m.Year })
             //    .Where(m => m.Year > 1995);
-            #endregion
 
-            #region
             //var resultA = movies.Select(m => new { m.Title, m.Year })
             //    .Select(m => new { ShortYear = m.Year, m.Title })
             //    .Where(m => m.ShortYear > 1995)
@@ -230,15 +265,7 @@ namespace LINQTester
 
             //Console.WriteLine();
 
-            //var queryTitleMoviesFromNewYorkNoOfActors = from m in movies
-            //    join s in studios on m.StudioName equals s.StudioName
-            //    where s.HQCity == "New York"
-            //    select new { MovieTitle = m.Title, NoOfActors = m.Actors.Count };
 
-            //foreach (var v in queryTitleMoviesFromNewYorkNoOfActors)
-            //{
-            //    Console.WriteLine($"Title {v.MovieTitle}  No of actors {v.NoOfActors}");
-            //}
 
 
 
@@ -255,25 +282,7 @@ namespace LINQTester
             //}
 
 
-            //Console.WriteLine("List movies der er lavet fra et filmselskab fra New York og antallet af actors der starter med R");
-            //var moviesNewYork = from m in movies
-            //    join s in studios
-            //        on m.StudioName equals s.StudioName
-            //    where s.HQCity == "New York"
-            //    select new
-            //    {
-            //        MoviesName = m.Title,
-            //        ProductionCity = s.HQCity,
-            //        numberOfActors = (from a in m.Actors
-            //            where a.Name.StartsWith("R")
-            //            select a).Count()
-            //    };
 
-            //foreach (var m in moviesNewYork)
-            //{
-            //    Console.WriteLine($"Title {m.MoviesName}  City {m.ProductionCity} number of Actor with R {m.numberOfActors}");
-            //}
-            // The LAST line of code should be ABOVE this line
         }
     }
 }
