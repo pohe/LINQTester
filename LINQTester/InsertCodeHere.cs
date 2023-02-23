@@ -44,10 +44,10 @@ namespace LINQTester
 
             #region Examples 1
 
-            int[] numbers = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
+            //int[] numbers = new int[7] { 0, 1, 2, 3, 4, 5, 6 };
 
-            //// 2.Query creation.
-            //// numQuery is an IEnumerable < int >
+            ////// 2.Query creation.
+            ////// numQuery is an IEnumerable < int >
             //var numQuery = from num in numbers
             //               where (num % 2) == 0
             //               select num;
@@ -158,60 +158,41 @@ namespace LINQTester
             #endregion
 
             #region Example join 2
-            Console.WriteLine("Find filmtitler og filmens antal skuespillere på film der er lavet i et studio i New York");
-            var queryTitleMoviesFromNewYorkNoOfActors =
-                    from m in movies
-                    join s in studios on m.StudioName equals s.StudioName
-                    where s.HQCity == "New York"
-                    select new { MovieTitle = m.Title, NoOfActors = m.Actors.Count };
+            //Console.WriteLine("Find filmtitler og filmens antal skuespillere på film der er lavet i et studio i New York");
+            //var queryTitleMoviesFromNewYorkNoOfActors =
+            //        from m in movies
+            //        join s in studios on m.StudioName equals s.StudioName
+            //        where s.HQCity == "New York"
+            //        select new { MovieTitle = m.Title, NoOfActors = m.Actors.Count };
 
-            foreach (var v in queryTitleMoviesFromNewYorkNoOfActors)
-            {
-                Console.WriteLine($"Title {v.MovieTitle}  No of actors {v.NoOfActors}");
-            }
+            //foreach (var v in queryTitleMoviesFromNewYorkNoOfActors)
+            //{
+            //    Console.WriteLine($"Title {v.MovieTitle}  No of actors {v.NoOfActors}");
+            //}
             #endregion
 
             #region Example join 3
-            Console.WriteLine("List movies der er lavet fra et filmselskab fra New York og antallet af actors der starter med R");
-            var moviesNewYork = from m in movies
-                                join s in studios
-                                    on m.StudioName equals s.StudioName
-                                where s.HQCity == "New York"
-                                select new
-                                {
-                                    MoviesName = m.Title,
-                                    ProductionCity = s.HQCity,
-                                    numberOfActors = (from a in m.Actors
-                                                      where a.Name.StartsWith("R")
-                                                      select a).Count()
-                                };
+            //Console.WriteLine("List movies der er lavet fra et filmselskab fra New York og antallet af actors der starter med R");
+            //var moviesNewYork = from m in movies
+            //                    join s in studios
+            //                        on m.StudioName equals s.StudioName
+            //                    where s.HQCity == "New York"
+            //                    select new
+            //                    {
+            //                        MoviesName = m.Title,
+            //                        ProductionCity = s.HQCity,
+            //                        numberOfActors = (from a in m.Actors
+            //                                          where a.Name.StartsWith("R")
+            //                                          select a).Count()
+            //                    };
 
-            foreach (var m in moviesNewYork)
-            {
-                Console.WriteLine($"Title {m.MoviesName}  City {m.ProductionCity} number of Actor with R {m.numberOfActors}");
-            }
+            //foreach (var m in moviesNewYork)
+            //{
+            //    Console.WriteLine($"Title {m.MoviesName}  City {m.ProductionCity} number of Actor with R {m.numberOfActors}");
+            //}
             #endregion
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            #region Example Fluent syntax example 1
 
             //List<int> numbers = new List<int> { 12, 37, 8, 17 };
             //IEnumerable<int> resultA = numbers.Where(i => i < 15);
@@ -234,27 +215,12 @@ namespace LINQTester
             //}
 
 
+            #endregion
 
-            //var resultA = movies.Select(m => new { m.Title, m.Year });
-
-            //var resultA = movies.Select(m => new { m.Title, m.Year })
-            //    .Where(m => m.Year > 1995);
-
-            //var resultA = movies.Select(m => new { m.Title, m.Year })
-            //    .Select(m => new { ShortYear = m.Year, m.Title })
-            //    .Where(m => m.ShortYear > 1995)
-            //    .Where(m => m.Title.Contains("The"));
-
-            //foreach (var i in resultA)
-            //{
-            //    Console.WriteLine(i);
-            //}
-
-            //Console.WriteLine();
-
+            #region SQL like <> Fluent syntax example 2
             //// Corresponding SQL-like LINQ query
             //var resultB = from m in movies
-            //    select new { m.Title, m.Year };
+            //              select new { m.Title, m.Year };
 
 
 
@@ -265,23 +231,39 @@ namespace LINQTester
 
             //Console.WriteLine();
 
+            #endregion
 
+            #region Fluent syntax example 2
+            //var resultA = movies.Select(m => new { m.Title, m.Year });
 
+            //var resultA = movies.Select(m => new { m.Title, m.Year }).Where(m => m.Year > 1995);
 
+            //var resultA = movies.Select(m => new { m.Title, m.Year })
+            //    .Select(m => new { ShortYear = m.Year, m.Title })
+            //    .Where(m => m.ShortYear > 1995)
+            //    .Where(m => m.Title.Contains("Da"));
 
-
-
-            //Console.WriteLine("Define the query combining LINQ and Lambda expressions");
-            //// Define the query combining LINQ and Lambda expressions
-            //IEnumerable<string> titles4 = from m in movies.FindAll(m => m.Year > 1979)
-            //    select m.Title;
-
-            //foreach (var element in titles4)
+            //foreach (var i in resultA)
             //{
-            //    Console.WriteLine(element);
+            //    Console.WriteLine(i);
             //}
 
+            //Console.WriteLine();
 
+            #endregion
+
+            #region Combining Linq and Lambda
+            Console.WriteLine("Define the query combining LINQ and Lambda expressions");
+            // Define the query combining LINQ and Lambda expressions
+            IEnumerable<string> titles4 = from m in movies.FindAll(m => m.Year > 1979)
+                                          select m.Title;
+
+            foreach (var element in titles4)
+            {
+                Console.WriteLine(element);
+            }
+
+            #endregion
 
         }
     }
